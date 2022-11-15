@@ -1,25 +1,26 @@
 from cryptography.fernet import Fernet
 
-keyF = open('code.txt','r')
+keyF = open('keyenc.txt','r')
 key = keyF.read()
 keyF.close()
 
+filez = input("file to encrypt : ")
+
 #starting to encrypt the file
-with open('zadig.mp4','r') as k:
+print ('---------reading file---------')
+with open(filez,'rb') as k:
 	data = k.read()
+print ('---------done reading file------')
+
+print ('---------encrypting file-------')
 caesar = Fernet(key)
 encrypted = caesar.encrypt(data)
-print 'done encrypting'
-with open('000.enc','w') as j:
-	j.write(encrypted)
-print 'done saving the encrypted file'
+print ('--------done encrypting--------')
 
-with open('000.enc','r') as e:
-	data = e.read()
-caesar = Fernet(key)
-dec = caesar.decrypt(data)
+out = input("output encyrpt file : ")
 
-#saving file
-with open('000.mp4','w') as f:
-	f.write(dec)
-print'done decrypting the file' 
+print ('--------saving encrypted file--------')
+with open(out,'w') as j:
+	j.write(encrypted.decode('utf-8'))
+
+print ('--------done saving the encrypted file-------')
